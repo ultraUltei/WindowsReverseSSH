@@ -1,1 +1,1 @@
-CreateObject("Wscript.Shell").Run "rssh.bat", 0, True
+CreateObject("Wscript.Shell").Run "rssh.bat global path", 0, True
